@@ -1,0 +1,42 @@
+{
+  "name": "citac-brojila",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "eval:run": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --import tsx eval/run.ts",
+    "eval:score": "node --import tsx eval/score.ts",
+    "dataset:check": "node --import tsx scripts/check-dataset.ts",
+    "dataset:strip-exif": "node --import tsx scripts/strip-exif.ts",
+    "check": "npm run typecheck && npm run lint && npm test"
+  },
+  "dependencies": {
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sharp": "^0.35.4",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.20.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

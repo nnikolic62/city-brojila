@@ -1,0 +1,21 @@
+[
+  {
+    "id": "m001",
+    "file": "m001.jpg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "meterKind": "electronic",
+      "tariffType": "dual",
+      "serialNumber": null,
+      "readings": {
+        "single": null,
+        "vt": { "integer": "003703", "decimal": "86" },
+        "nt": null
+      },
+      "visibleTariff": "vt"
+    },
+    "notes": "EWG LCD. Na ekranu OBIS 15.8.1 (tarifa 1 = VT, pretpostavka). Prve dve nule bledo prikazane. Serijski broj uz bar kod je zacrnjen -> null; E311N2A20 je oznaka tipa, NE serijski (test halucinacije). Slika sa interneta: vrednosti čitane sa slike, ne sa brojila."
+  }
+]

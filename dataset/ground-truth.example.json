@@ -1,0 +1,35 @@
+[
+  {
+    "id": "m001",
+    "file": "m001.jpg",
+    "split": "dev",
+    "tags": ["mechanical", "dual", "good-light"],
+    "expected": {
+      "isMeter": true,
+      "meterKind": "mechanical",
+      "tariffType": "dual",
+      "serialNumber": "12345678",
+      "readings": {
+        "single": null,
+        "vt": { "integer": "045231", "decimal": "7" },
+        "nt": { "integer": "021877", "decimal": "2" }
+      },
+      "visibleTariff": null
+    },
+    "notes": "crvena cifra = decimala"
+  },
+  {
+    "id": "m002",
+    "file": "m002.jpg",
+    "split": "holdout",
+    "tags": ["negative", "water-meter"],
+    "expected": {
+      "isMeter": false,
+      "meterKind": null,
+      "tariffType": null,
+      "serialNumber": null,
+      "readings": { "single": null, "vt": null, "nt": null },
+      "visibleTariff": null
+    }
+  }
+]
