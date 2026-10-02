@@ -376,5 +376,382 @@
       "yearOfManufacture": "2023",
       "obis": [{ "code": "15.8.2", "value": "002126.66" }]
     }
+  },
+  {
+    "id": "im30-45",
+    "file": "im30-45.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31179345",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:02:11" }]
+    }
+  },
+  {
+    "id": "im31-45",
+    "file": "im31-45.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31179345",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.2", "value": "02.10.26" }]
+    }
+  },
+  {
+    "id": "im32-45",
+    "file": "im32-45.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31179345",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "F.F.0", "value": "00002000" }]
+    }
+  },
+  {
+    "id": "im33-45",
+    "file": "im33-45.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31179345",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "002814.14" }]
+    }
+  },
+  {
+    "id": "im34-45",
+    "file": "im34-45.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31179345",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "000768.05" }]
+    }
+  },
+  {
+    "id": "im35-02",
+    "file": "im35-02.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204402",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "002395.29" }]
+    }
+  },
+  {
+    "id": "im36-02",
+    "file": "im36-02.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204402",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "11:59:38" }]
+    }
+  },
+  {
+    "id": "im37-02",
+    "file": "im37-02.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204402",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.2", "value": "02.10.26" }]
+    }
+  },
+  {
+    "id": "im38-02",
+    "file": "im38-02.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204402",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "F.F.0", "value": "00002000" }]
+    }
+  },
+  {
+    "id": "im39-02",
+    "file": "im39-02.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204402",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "013433.13" }]
+    }
+  },
+  {
+    "id": "im40-94",
+    "file": "im40-94.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31203994",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "008172.74" }]
+    }
+  },
+  {
+    "id": "im41-94",
+    "file": "im41-94.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31203994",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "F.F.0", "value": "00002000" }]
+    }
+  },
+  {
+    "id": "im42-94",
+    "file": "im42-94.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31203994",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.2", "value": "02.10.26" }]
+    }
+  },
+  {
+    "id": "im43-94",
+    "file": "im43-94.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31203994",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:02:58" }]
+    }
+  },
+  {
+    "id": "im44-94",
+    "file": "im44-94.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31203994",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "001298.58" }]
+    }
+  },
+  {
+    "id": "im45-67",
+    "file": "im45-67.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204467",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "010080.09" }]
+    }
+  },
+  {
+    "id": "im46-67",
+    "file": "im46-67.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204467",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "002838.48" }]
+    }
+  },
+  {
+    "id": "im47-67",
+    "file": "im47-67.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204467",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:01:33" }]
+    }
+  },
+  {
+    "id": "im48-64",
+    "file": "im48-64.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201264",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:03:26" }]
+    }
+  },
+  {
+    "id": "im49-64",
+    "file": "im49-64.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201264",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "000318.03" }]
+    }
+  },
+  {
+    "id": "im50-64",
+    "file": "im50-64.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201264",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "F.F.0", "value": "00002000" }]
+    }
+  },
+  {
+    "id": "im51-64",
+    "file": "im51-64.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201264",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "001664.03" }]
+    }
+  },
+  {
+    "id": "im52-21",
+    "file": "im52-21.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201721",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "001313.15" }]
+    }
+  },
+  {
+    "id": "im53-21",
+    "file": "im53-21.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201721",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:02:55" }]
+    }
+  },
+  {
+    "id": "im54-21",
+    "file": "im54-21.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201721",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.2", "value": "02.10.26" }]
+    }
+  },
+  {
+    "id": "im55-21",
+    "file": "im55-21.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31201721",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "006386.61" }]
+    }
+  },
+  {
+    "id": "im56-95",
+    "file": "im56-95.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204395",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "0.9.1", "value": "12:04:07" }]
+    }
+  },
+  {
+    "id": "im57-95",
+    "file": "im57-95.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204395",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "002263.38" }]
+    }
+  },
+  {
+    "id": "im58-95",
+    "file": "im58-95.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31204395",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.1", "value": "014106.24" }]
+    }
   }
 ]
