@@ -363,5 +363,18 @@
       "yearOfManufacture": "2023",
       "obis": [{ "code": "15.8.1", "value": "009895.58" }]
     }
+  },
+  {
+    "id": "im29-25",
+    "file": "im29-25.jpeg",
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light", "internet"],
+    "expected": {
+      "isMeter": true,
+      "serialNumber": "31205125",
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2023",
+      "obis": [{ "code": "15.8.2", "value": "002126.66" }]
+    }
   }
 ]
