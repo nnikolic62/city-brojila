@@ -1,7 +1,22 @@
 # Čitač brojila (prototip)
 
-Fotografija brojila → vision model preko OpenRoutera → popunjena forma (serijski broj, VT/NT/JT).
+Fotografija brojila → vision model preko OpenRoutera → popunjena forma (serijski broj, OBIS).
 Detaljan plan po fazama: [`PLAN.md`](./PLAN.md).
+
+## Instrukcije za AI
+
+Jedan ugovor, više alata. Ugovor za kod je [`AGENTS.md`](./AGENTS.md). Uputstva za čitanje slike (promptovi, uloge modela, provere) su skill `meter-pipeline`.
+
+| Alat | Šta učitava |
+|---|---|
+| Claude Code | `CLAUDE.md` (uvlači `AGENTS.md`), `.claude/skills/` |
+| Cursor | `AGENTS.md`, `.cursor/skills/` |
+| Codex | `AGENTS.md` |
+| OpenCode | `.opencode/` (isti skill, plus agenti `meter-locator`, `meter-extractor`, `meter-reader`) |
+
+Izvor skill-a: [`docs/skills/meter-pipeline/SKILL.md`](docs/skills/meter-pipeline/SKILL.md). Iste kopije: `.claude/skills/`, `.cursor/skills/`, `.opencode/skills/`. Kad se skill menja, menja se u sve četiri u istom potezu.
+
+Tekst koji produkcija šalje na OpenRouter je `lib/prompts/v6.ts` (`PROMPT_VERSION=v6`). Posle eval pokretanja ta verzija se ne menja; sledeća izmena je novi fajl. Duža uputstva za interaktivno čitanje (ground truth, provera promašaja) su u `.opencode/agent/`.
 
 ## Pokretanje
 ```bash
@@ -21,7 +36,9 @@ Za slikanje telefonom potreban je HTTPS (deploy na Vercel ili tunel, npr. `npx l
 | `npm run eval:run -- --split dev` | Šalje dataset na modele iz `eval/models.config.ts`, čuva sirove odgovore |
 | `npm run eval:score` | Računa metrike za poslednji run → `eval/results/<ts>/report.md` |
 
-Opcije za `eval:run`: `--split dev\|holdout\|all`, `--prompt v1`, `--runs 3`, `--concurrency 4`, `--models id1,id2`, `--no-preprocess`.
+Opcije za `eval:run`: `--split dev\|holdout\|all`, `--prompt v6`, `--runs 3`, `--concurrency 4`, `--models id1,id2`, `--no-crop`, `--no-barcode`, `--crop-model`.
+Podrazumevano bar-kod ide na crop, a modelu cela slika. `--crop-model` šalje crop i modelu.
+Više run-ova u jednoj tabeli: `npm run eval:score -- --dir <ts1>,<ts2>`.
 
 ## API
 `POST /api/read-meter` — `multipart/form-data`: `image` (obavezno), `previousReading` (opciono, JSON `{"vt":"045000","nt":"021000"}`).

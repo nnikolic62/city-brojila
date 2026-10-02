@@ -6,17 +6,15 @@
     "tags": ["mechanical", "dual", "good-light"],
     "expected": {
       "isMeter": true,
-      "meterKind": "mechanical",
-      "tariffType": "dual",
       "serialNumber": "12345678",
-      "readings": {
-        "single": null,
-        "vt": { "integer": "045231", "decimal": "7" },
-        "nt": { "integer": "021877", "decimal": "2" }
-      },
-      "visibleTariff": null
+      "manufacturer": null,
+      "yearOfManufacture": null,
+      "obis": [
+        { "code": "1.8.1", "value": "0452317" },
+        { "code": "1.8.2", "value": "0218772" }
+      ]
     },
-    "notes": "crvena cifra = decimala"
+    "notes": "crvena cifra = decimala uključena u string vrednosti"
   },
   {
     "id": "m002",
@@ -25,11 +23,10 @@
     "tags": ["negative", "water-meter"],
     "expected": {
       "isMeter": false,
-      "meterKind": null,
-      "tariffType": null,
       "serialNumber": null,
-      "readings": { "single": null, "vt": null, "nt": null },
-      "visibleTariff": null
+      "manufacturer": null,
+      "yearOfManufacture": null,
+      "obis": []
     }
   }
 ]

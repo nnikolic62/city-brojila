@@ -16,9 +16,7 @@ for (const e of entries) {
     problems.push(`Nedostaje slika: images/${e.file}`);
   }
   const x = e.expected;
-  if (!x.isMeter && (x.readings.single || x.readings.vt || x.readings.nt)) problems.push(`${e.id}: isMeter=false a ima stanja`);
-  if (x.tariffType === "single" && (x.readings.vt || x.readings.nt)) problems.push(`${e.id}: jednotarifno a ima VT/NT`);
-  if (x.tariffType === "dual" && x.readings.single) problems.push(`${e.id}: dvotarifno a ima single`);
+  if (!x.isMeter && x.obis.length > 0) problems.push(`${e.id}: isMeter=false a ima OBIS očitanja`);
 }
 
 const has = (...tags: string[]) => entries.filter((e) => tags.every((t) => e.tags.includes(t))).length;

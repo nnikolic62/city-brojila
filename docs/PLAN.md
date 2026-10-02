@@ -118,36 +118,35 @@ Jedna slika može pokrivati više kategorija (npr. LCD + odsjaj) — to se bele�
 - Kod LCD dvotarifnih: ekran prikazuje jednu vrednost u trenutku — zabeležiti koja je tarifa prikazana (oznaka T1/T2, 1.8.1/1.8.2 OBIS kod i sl.).
 
 ### 1.3 Zapisivanje ground trutha
-Odmah pored brojila (ne kasnije iz slike!) zapisati vrednosti. Format `dataset/ground-truth.json`:
+Odmah pored brojila (ne kasnije iz slike!) zapisati vrednosti. Format `dataset/ground-truth.json` — **po slici**, isti oblik kao izlaz modela (`docs/PRD.md`):
 
 ```json
 [
   {
     "id": "m001",
     "file": "m001.jpg",
-    "tags": ["mechanical", "dual", "good-light"],
+    "split": "dev",
+    "tags": ["electronic", "dual", "good-light"],
     "expected": {
       "isMeter": true,
-      "meterKind": "mechanical",
-      "tariffType": "dual",
       "serialNumber": "12345678",
-      "readings": {
-        "vt": { "integer": "045231", "decimal": "7" },
-        "nt": { "integer": "021877", "decimal": "2" },
-        "single": null
-      },
-      "visibleTariff": null
+      "manufacturer": "EWG",
+      "yearOfManufacture": "2020",
+      "obis": [
+        { "code": "1.8.1", "value": "0452317" },
+        { "code": "1.8.2", "value": "0218772" }
+      ]
     },
-    "notes": "crvena cifra = decimala"
+    "notes": "opciono: kontekst, tarifa na LCD-u, zašto je serial null"
   }
 ]
 ```
 
 Pravila zapisa:
-- Cifre se čuvaju kao **stringovi** (čuvaju vodeće nule i broj cifara).
-- Decimala (crvena/odvojena cifra) se piše posebno. Ako je nema → `null`.
-- Polje koje se na slici **ne vidi** → `null` (i model treba da vrati `null`, ne da izmisli).
-- Za negativne primere: `"isMeter": false`, ostalo `null`.
+- **Eval ostaje jedna slika po uzorku** — `expected` opisuje tu sliku. U produkciji više slika spaja `lib/merge.ts`; `serialNumber: null` u ground truthu je validno za eval (API i dalje odbija submit bez serijskog na bilo kojoj slici).
+- OBIS samo ako je **štampan na slici**; vrednost jedan string (vodeće nule, bez sufiksa jedinice).
+- Polje koje se na slici **ne vidi / nečitljivo** → `null` (model ne sme da izmisli).
+- Za negativne primere: `"isMeter": false`, `obis: []`, ostala polja `null`.
 
 ### 1.4 Podela
 - `dev` (~70%): koristi se za podešavanje prompta.
@@ -164,34 +163,32 @@ Pravila zapisa:
 
 ## Faza 2 — Šema polja
 
-**Ulaz:** polja koja postojeća aplikacija već koristi (serijski broj, VT, NT, datum…). **Pre implementacije potvrditi tačan spisak i nazive sa postojećim sistemom.**
+**Ulaz:** `docs/PRD.md` (OBIS, više slika, spajanje). Mapiranje na postojeći sistem: `serialNumber` ↔ `serijskiBroj`, `manufacturer` ↔ `oznakaProizvodjaca`, `yearOfManufacture` ↔ `godinaProizvodnje`.
 
-### 2.1 Polja koja vraća model
+### 2.1 Polja koja vraća model (po slici)
 | Polje | Tip | Opis |
 |---|---|---|
 | `isMeter` | boolean | Da li je na slici brojilo električne energije |
-| `meterKind` | `"mechanical" \| "electronic" \| null` | Tip brojila |
-| `tariffType` | `"single" \| "dual" \| null` | Jednotarifno / dvotarifno |
-| `serialNumber` | string \| null | Fabrički broj brojila (samo cifre/slova, bez razmaka) |
-| `readings.single` | `{ integer, decimal } \| null` | Stanje za jednotarifno |
-| `readings.vt` | `{ integer, decimal } \| null` | Viša tarifa |
-| `readings.nt` | `{ integer, decimal } \| null` | Niža tarifa |
-| `visibleTariff` | `"vt" \| "nt" \| "single" \| null` | Kod LCD-a: koja tarifa je trenutno na ekranu |
-| `imageQuality` | `{ blur, glare, partial }` (boolean) | Problemi sa slikom |
-| `confidence` | `{ serialNumber, readings }` (`"high" \| "medium" \| "low"`) | Samoprocena modela |
+| `serialNumber` | string \| null | Serijski broj sa tablice; **ne** kod tipa/modela; null ako nečitljivo |
+| `manufacturer` | string \| null | Samo naziv proizvođača (EWG, Meter&Control…); null ako nečitljivo |
+| `yearOfManufacture` | string \| null | Tačno četiri cifre; null ako nečitljivo |
+| `obis` | `{ code, value }[]` | Samo kodovi otisnuti na **ovoj** slici; `value` jedan string kao na displeju |
 
-`integer` i `decimal` su **stringovi cifara**.
+Uklonjeno iz model šeme (staro): `meterKind`, `tariffType`, `readings`, `visibleTariff`, `imageQuality`, `confidence`. Tarife su OBIS kodovi (npr. `1.8.1` / `1.8.2`, `15.8.1`…).
 
-### 2.2 Polja koja NE vraća model
-- `readingDate` — datum očitavanja postavlja **server** (trenutno vreme), ili EXIF datum slike ako postoji. Model ne treba da "čita" datum.
-- `previousReading` — dolazi iz postojećeg sistema (u prototipu: ručni unos/mock).
-- `unit` — uvek kWh (fiksno).
+### 2.2 Spojeni odgovor API-ja (server, ne model)
+Nakon `mergeReadings` nad svim slikama: jedan `serialNumber`, `manufacturer`, `yearOfManufacture`, `obis[]` sa `{ code, value, review }` (`value: null`, `review: true` pri konfliktu). Zod: `MergedMeterReadingSchema` u `lib/schema.ts`.
 
-### 2.3 Implementacija
+### 2.3 Polja koja NE vraća model
+- `readingDate` — postavlja **server** (trenutno vreme ili EXIF).
+- `unit` — uvek kWh (fiksno, van JSON-a modela).
+
+### 2.4 Implementacija
 - `lib/schema.ts`: Zod šema `MeterReadingSchema`.
 - JSON Schema za model: `z.toJSONSchema(MeterReadingSchema)`.
 - Za **strict structured output**: sva polja `required`, opciona polja su `nullable`, `additionalProperties: false`.
-- Opisi polja (`.describe(...)`) su deo šeme — model ih vidi, pa moraju biti precizni (npr. "decimal: cifra u crvenom polju ili iza zareza; null ako ne postoji").
+- Opisi polja (`.describe(...)`) su deo šeme — model ih vidi (npr. ne izmišljati OBIS, tip brojila ≠ serial).
+- Prompt **v2** za OBIS (`lib/prompts/v2.ts`); v1 se ne menja posle eval run-a.
 
 **Izlaz:** `lib/schema.ts`, tipovi `MeterReading`, test da `ground-truth.json` prolazi šemu.
 **DoD:** šema potvrđena u odnosu na postojeću aplikaciju; jedan izvor istine; ground truth validan.
@@ -222,20 +219,22 @@ Pravila zapisa:
 - **Svaki sirovi odgovor se čuva** u `eval/results/<timestamp>/<model>/<imageId>.json`. Skoring (`score.ts`) radi nad sačuvanim fajlovima → može se ponavljati bez novog trošenja.
 - Varijabla za eksperiment: sa i bez preprocessinga (resize/kompresija) — da se vidi uticaj na tačnost i latenciju.
 
-### 3.4 Normalizacija i poređenje (`lib/normalize.ts`)
-- Stanje: ukloniti razmake; porediti **celobrojni deo bez vodećih nula** (primarna metrika) i celobrojni + decimala (sekundarna).
-- Serijski broj: ukloniti razmake, crtice, tačke; uppercase; exact match.
-- `null` vs vrednost = greška; `null` vs `null` = tačno.
+### 3.4 Normalizacija i poređenje (`lib/normalize.ts`, `eval/scoring.ts`)
+- OBIS `value`: ukloniti razmake pre poređenja (`equalObisValue`); inače exact string match sa ground truthom.
+- Serijski broj: ukloniti razmake, crtice, tačke; uppercase; exact match posle normalizacije.
+- `null` vs vrednost = greška na polju; **halucinacija** ako je GT `serialNumber: null` a model vratio vrednost, ili ako model vrati OBIS kod koji nije u ground truthu.
+- `null` vs `null` = tačno.
 
-### 3.5 Metrike (`eval/score.ts`)
-Po modelu:
-1. **Tačnost po polju**: `isMeter`, `meterKind`, `tariffType`, `serialNumber`, `vt`, `nt`, `single`.
-2. **Tačnost celog zapisa** (sva polja tačna) — najstroža metrika, najpoštenija za demo.
-3. **Tačnost po tagu** (mehaničko/LCD/odsjaj/mrak…) — pokazuje gde model puca.
-4. **Validan JSON %**.
-5. **Halucinacije**: model vratio vrednost gde je ground truth `null`.
-6. **Latencija** p50/p95, **cena** po slici i po 1000 slika.
-7. **Stabilnost** (ako `--runs > 1`): % slika gde se odgovori razlikuju između pokretanja.
+### 3.5 Metrike (`eval/score.ts`, `eval/scoring.ts`)
+Po modelu (jedna slika = jedan uzorak, kao ground truth):
+1. **Tačnost po polju**: `isMeter`, `serialNumber`, `manufacturer`, `yearOfManufacture`.
+2. **Tačnost po OBIS kodu** iz ground trutha (svaki očekivani `code` posebno).
+3. **Tačnost celog zapisa** — sva polja + svi očekivani OBIS kodovi tačni, bez halucinacija.
+4. **Tačnost po tagu** (mehaničko/LCD/odsjaj/mrak…) — pokazuje gde model puca.
+5. **Validan JSON %**.
+6. **Halucinacije**: izmišljen serijski kad je GT `null`; OBIS kodovi van ground trutha.
+7. **Latencija** p50/p95, **cena** po slici i po 1000 slika.
+8. **Stabilnost** (ako `--runs > 1`): % slika gde se odgovori razlikuju između pokretanja.
 
 ### 3.6 Izveštaj (`eval/report.ts`)
 - `report.md` + `report.html`: zbirna tabela modela, tabela po tagu, lista promašaja (slika + očekivano + dobijeno) — lista promašaja je glavni materijal za poboljšanje prompta.

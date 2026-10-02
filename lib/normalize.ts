@@ -1,4 +1,9 @@
-import type { ReadingValue } from "./schema";
+/** OBIS vrednost: ukloni razmake pre poređenja (PRD merge). */
+export function normalizeObisValue(value: string): string {
+  return value.replace(/\s+/g, "");
+}
+
+type ReadingParts = { integer: string; decimal: string | null };
 
 /** "045231" → "45231"; "0000" → "0". Koristi se za poređenje celobrojnog dela (primarna metrika). */
 export function stripLeadingZeros(digits: string): string {
@@ -14,16 +19,20 @@ export function normalizeSerial(serial: string | null): string | null {
 }
 
 /** Stanje kao broj (kWh) — samo za aritmetiku (poređenje sa prethodnim, skok potrošnje). */
-export function readingToNumber(r: Pick<ReadingValue, "integer" | "decimal">): number {
+export function readingToNumber(r: Pick<ReadingParts, "integer" | "decimal">): number {
   return Number(`${stripLeadingZeros(r.integer)}.${r.decimal ?? "0"}`);
 }
 
-export function equalInteger(a: ReadingValue | null, b: ReadingValue | null): boolean {
+export function equalInteger(a: ReadingParts | null, b: ReadingParts | null): boolean {
   if (a === null || b === null) return a === b;
   return stripLeadingZeros(a.integer) === stripLeadingZeros(b.integer);
 }
 
-export function equalFull(a: ReadingValue | null, b: ReadingValue | null): boolean {
+export function equalFull(a: ReadingParts | null, b: ReadingParts | null): boolean {
   if (a === null || b === null) return a === b;
   return equalInteger(a, b) && (a.decimal ?? null) === (b.decimal ?? null);
+}
+
+export function equalObisValue(a: string, b: string): boolean {
+  return normalizeObisValue(a) === normalizeObisValue(b);
 }

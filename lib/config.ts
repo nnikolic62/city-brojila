@@ -4,7 +4,7 @@ const EnvSchema = z.object({
   OPENROUTER_API_KEY: z.string().min(1, "Nedostaje OPENROUTER_API_KEY u .env"),
   MODEL_PRIMARY: z.string().min(1, "Nedostaje MODEL_PRIMARY u .env (ID modela sa openrouter.ai/models)"),
   MODEL_FALLBACK: z.string().optional().default(""),
-  PROMPT_VERSION: z.enum(["v1"]).default("v1"),
+  PROMPT_VERSION: z.enum(["v1", "v2", "v3", "v4", "v5", "v6"]).default("v6"),
   OPENROUTER_TIMEOUT_MS: z.coerce.number().int().positive().default(20000),
 });
 
@@ -32,5 +32,14 @@ export const RULES = {
   },
   /** Maksimalan realan skok potrošnje između dva očitavanja (kWh). */
   maxJumpKwh: 3000,
-  serialNumber: { pattern: /^[A-Z0-9]{6,16}$/ },
+  serialNumber: {
+    pattern: /^[A-Z0-9]{6,16}$/,
+    /** Tekst bar-koda koji jeste fabrički serijski. QR i 13-cifrena nalepnica otpadaju ovde. */
+    barcodePatterns: [/^\d{8}$/],
+  },
+  /**
+   * Gornji deo kadra (procenti 0–1): displej + serijski, bez nalepnice distribucije.
+   * 0.50–0.55 seče LCD na im12/im16; 0.60 provereno na 28 slika (1500×2000).
+   */
+  crop: { top: 0, left: 0, width: 1, height: 0.6 },
 } as const;

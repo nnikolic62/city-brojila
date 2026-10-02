@@ -26,3 +26,26 @@ Next.js 16 (App Router) + TypeScript strict, Tailwind v4, Zod v4, sharp, Vitest,
 - Ground truth se ne menja da bi model "prošao"; ispravke u `dataset/CHANGELOG.md`.
 - Pre završetka posla: `npm run check` (typecheck + lint + test) mora biti zeleno.
 - UI tekst na srpskom (latinica), kod na engleskom.
+
+## Skill i promptovi za modele
+
+Skill `meter-pipeline` postoji na četiri mesta i mora ostati isti tekst:
+
+- `docs/skills/meter-pipeline/SKILL.md` (izvor)
+- `.claude/skills/meter-pipeline/SKILL.md`
+- `.cursor/skills/meter-pipeline/SKILL.md`
+- `.opencode/skills/meter-pipeline/SKILL.md`
+
+OpenCode subagenti za taj skill: `.opencode/agent/meter-locator.md`, `meter-extractor.md`, `meter-reader.md`.
+
+Kad menjaš skill, ista izmena ide u sve četiri kopije u istom potezu. Pravila čitanja u agentima i u `lib/prompts/v6.ts` moraju da se slažu. v1–v5 se ne menjaju posle eval pokretanja; sledeća izmena prompta je novi fajl.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -10,8 +10,6 @@
 export type EvalModel = { id: string; label: string };
 
 export const EVAL_MODELS: EvalModel[] = [
-  { id: "google/gemini-2.5-flash-lite", label: "Gemini Flash Lite" },
   { id: "google/gemini-2.5-flash", label: "Gemini Flash" },
-  // { id: "<provider>/<model>", label: "Claude" },
-  // { id: "<provider>/<model>", label: "Qwen VL" },
+  { id: "google/gemini-2.5-flash-lite", label: "Gemini Flash Lite" },
 ];

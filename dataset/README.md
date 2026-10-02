@@ -5,11 +5,12 @@
 - Provera: `npm run dataset:check` (šema, postojanje fajlova, pokrivenost)
 - Ispravke ground trutha beleži u `CHANGELOG.md`
 
-## Pravila zapisa
-- Vrednosti zapisuj **odmah pored brojila**, ne naknadno sa slike.
-- Cifre su stringovi, sa vodećim nulama. Decimala (crvena cifra) posebno, `null` ako je nema.
-- Ono što se na slici ne vidi → `null`.
-- Negativni primeri: `isMeter: false`, sve ostalo `null`.
+## Pravila zapisa (docs/PRD.md)
+- Vrednosti zapisuj **odmah pored brojila**, ne naknadno sa slike (izuzetak: tag `internet` — tada beleži u `notes`).
+- **Eval = jedna slika po uzorku** — `expected` je ono što model treba da vrati za tu sliku (isti oblik kao `MeterReadingSchema`).
+- OBIS: samo kodovi **vidljivo otisnuti** na toj slici; `value` je **jedan string** tačno kako piše na displeju (vodeće nule, decimala uključena ako je tako prikazano).
+- `serialNumber`, `manufacturer`, `yearOfManufacture` → `null` ako na slici nije jasno vidljivo (ne izmišljati). Kod tipa/modela (npr. `E311N2A20`) **nije** serijski broj.
+- Negativni primeri: `isMeter: false`, `obis: []`, ostala polja `null`.
 - Pre ubacivanja skini EXIF/GPS (`npm run dataset:strip-exif`).
 
 ## Tagovi (koristi dosledno)

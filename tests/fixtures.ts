@@ -3,17 +3,13 @@ import type { MeterReading } from "@/lib/schema";
 export function reading(overrides: Partial<MeterReading> = {}): MeterReading {
   return {
     isMeter: true,
-    meterKind: "mechanical",
-    tariffType: "dual",
     serialNumber: "12345678",
-    readings: {
-      single: null,
-      vt: { integer: "045231", decimal: "7" },
-      nt: { integer: "021877", decimal: "2" },
-    },
-    visibleTariff: null,
-    imageQuality: { blur: false, glare: false, partial: false },
-    confidence: { serialNumber: "high", readings: "high" },
+    manufacturer: "EWG",
+    yearOfManufacture: "2020",
+    obis: [
+      { code: "1.8.1", value: "0452317" },
+      { code: "1.8.2", value: "0218772" },
+    ],
     ...overrides,
   };
 }

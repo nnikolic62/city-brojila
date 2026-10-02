@@ -8,8 +8,8 @@ describe("schema", () => {
     expect(MeterReadingSchema.safeParse(reading()).success).toBe(true);
   });
 
-  it("odbija stanje koje nije niz cifara", () => {
-    const bad = reading({ readings: { single: null, vt: { integer: "45,231", decimal: null }, nt: null } });
+  it("odbija godinu koja nije četiri cifre", () => {
+    const bad = reading({ yearOfManufacture: "25" });
     expect(MeterReadingSchema.safeParse(bad).success).toBe(false);
   });
 

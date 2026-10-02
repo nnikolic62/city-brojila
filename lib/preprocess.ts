@@ -26,9 +26,44 @@ export async function preprocessImage(
     .rotate()
     .resize({ width: maxSide, height: maxSide, fit: "inside", withoutEnlargement: true })
     .jpeg({ quality, mozjpeg: true })
-    .toBuffer({ resolveWithObject: true });
+  .toBuffer({ resolveWithObject: true });
 
   return { buffer: data, mimeType: "image/jpeg", width: info.width, height: info.height, capturedAt };
+}
+
+export type OrientedImage = {
+  buffer: Buffer;
+  width: number;
+  height: number;
+  capturedAt: string | null;
+};
+
+/** EXIF rotacija na punoj rezoluciji, bez resize-a. Vraća i capturedAt. */
+export async function orientImage(input: Buffer): Promise<OrientedImage> {
+  const meta = await sharp(input).metadata();
+  const capturedAt = readExifDate(meta.exif);
+
+  const { data, info } = await sharp(input).rotate().toBuffer({ resolveWithObject: true });
+  return { buffer: data, width: info.width, height: info.height, capturedAt };
+}
+
+export type CropRegion = { top: number; left: number; width: number; height: number };
+
+/** Isecanje regiona zadatog u procentima (0–1), da radi na svakoj rezoluciji. */
+export async function cropRegion(input: Buffer, region: CropRegion): Promise<Buffer> {
+  const { width, height } = await sharp(input).metadata();
+  if (!width || !height) throw new Error("Slika nema dimenzije");
+
+  const left = clamp(Math.round(region.left * width), 0, width - 1);
+  const top = clamp(Math.round(region.top * height), 0, height - 1);
+  const extractWidth = Math.max(1, Math.min(Math.round(region.width * width), width - left));
+  const extractHeight = Math.max(1, Math.min(Math.round(region.height * height), height - top));
+
+  return sharp(input).extract({ left, top, width: extractWidth, height: extractHeight }).toBuffer();
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
 }
 
 /** Minimalno čitanje DateTimeOriginal ("YYYY:MM:DD HH:MM:SS") iz sirovog EXIF bloka. */
