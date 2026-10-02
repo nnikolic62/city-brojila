@@ -43,8 +43,6 @@ next-env.d.ts
 # env primer SE commituje
 !.env.example
 
-# dataset slike (serijski brojevi / privatnost) i sirovi eval rezultati
-/dataset/images/*
-!/dataset/images/.gitkeep
+# sirovi eval rezultati (skoring se može ponoviti iz sačuvanih JSON-a)
 /eval/results/*
 !/eval/results/.gitkeep

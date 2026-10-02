@@ -1,6 +1,6 @@
 # Dataset (PLAN.md, faza 1)
 
-- Slike: `images/m001.jpg`, `m002.jpg`… (slike NISU u gitu — sadrže serijske brojeve; čuvaj ih lokalno/na drajvu)
+- Slike: `images/im*.jpeg` (u gitu radi eval-a na više mašina; repo je private — i dalje bez EXIF/GPS)
 - Istina: `ground-truth.json` (format: vidi `ground-truth.example.json`)
 - Provera: `npm run dataset:check` (šema, postojanje fajlova, pokrivenost)
 - Ispravke ground trutha beleži u `CHANGELOG.md`

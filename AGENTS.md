@@ -16,7 +16,7 @@ Next.js 16 (App Router) + TypeScript strict, Tailwind v4, Zod v4, sharp, Vitest,
 - `lib/config.ts` — env + poslovni pragovi (RULES).
 - `app/api/read-meter/route.ts` — jedina API ruta. `app/page.tsx` — jedina stranica.
 - `eval/` — `run.ts` (sirovi odgovori), `score.ts` (metrike + report.md), `scoring.ts` (čiste funkcije).
-- `dataset/` — slike (van gita) + `ground-truth.json`.
+- `dataset/` — `images/` + `ground-truth.json`.
 
 ## Pravila
 - Cifre stanja su stringovi (vodeće nule!), decimala odvojeno.
